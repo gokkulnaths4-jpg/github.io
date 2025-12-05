@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Under Construction</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PIXLD — Under Construction</title>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+        :root {
+            --pixld-blue: #0b63ff;
+            --pixld-green: #36ff6b;
+            --pixld-red: #ff3932;
+            --bg-dark: #050608;
+            --card-bg: rgba(8, 10, 15, 0.82);
+            --border-soft: rgba(255, 255, 255, 0.08);
+            --text-main: #f5f5f5;
+            --text-soft: #9ea3af;
+        }
 
         * {
             margin: 0;
@@ -15,112 +26,374 @@
         }
 
         body {
-            font-family: "Poppins", sans-serif;
-            background: radial-gradient(circle at top, #1c1c1c, #0e0e0e 70%);
-            height: 100vh;
+            min-height: 100vh;
+            font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(11, 99, 255, 0.22), transparent 55%),
+                radial-gradient(circle at top right, rgba(54, 255, 107, 0.18), transparent 55%),
+                radial-gradient(circle at bottom, rgba(255, 57, 50, 0.2), transparent 55%),
+                var(--bg-dark);
+            color: var(--text-main);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            text-align: center;
+            padding: 24px;
             overflow: hidden;
         }
 
-        .glow-bg {
-            position: absolute;
-            width: 350px;
-            height: 350px;
-            background: #6e00ff;
-            filter: blur(120px);
-            opacity: 0.4;
-            top: -80px;
-            right: -60px;
-            animation: float 6s infinite ease-in-out;
+        /* subtle grain for depth */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1600 900' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+            mix-blend-mode: soft-light;
+            z-index: 0;
         }
 
-        .glow-bg2 {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: #008cff;
-            filter: blur(120px);
-            opacity: 0.3;
-            bottom: -60px;
-            left: -50px;
-            animation: float2 6s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(20px); }
-        }
-
-        @keyframes float2 {
-            0%, 100% { transform: translateY(15px); }
-            50% { transform: translateY(-15px); }
+        .shell {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 780px;
         }
 
         .card {
-            padding: 60px 40px;
-            max-width: 550px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            backdrop-filter: blur(14px);
-            animation: fadeIn 1.2s ease forwards;
+            position: relative;
+            border-radius: 22px;
+            background: linear-gradient(
+                    135deg,
+                    rgba(255, 255, 255, 0.03),
+                    rgba(5, 6, 8, 0.94)
+                );
+            border: 1px solid var(--border-soft);
+            padding: 40px 32px 30px;
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.01),
+                0 26px 80px rgba(0, 0, 0, 0.85);
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+            gap: 32px;
+            align-items: center;
+            animation: fadeIn 1s ease forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @media (max-width: 720px) {
+            .card {
+                grid-template-columns: 1fr;
+                padding: 32px 24px 26px;
+            }
+        }
+
+        .logo-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .logo-mark img {
+            width: 56px;
+            height: auto;
+            display: block;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-text span:first-child {
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            font-size: 0.7rem;
+            color: var(--text-soft);
+        }
+
+        .brand-text span:last-child {
+            font-weight: 500;
+            font-size: 1rem;
         }
 
         h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
+            font-size: clamp(1.9rem, 2.4vw + 1rem, 2.6rem);
+            line-height: 1.1;
+            margin-bottom: 12px;
         }
 
-        p {
+        .highlight-line {
+            background: linear-gradient(
+                90deg,
+                var(--pixld-blue),
+                var(--pixld-green),
+                var(--pixld-red)
+            );
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .lead {
+            font-size: 0.98rem;
+            color: var(--text-soft);
+            max-width: 450px;
+            margin-bottom: 22px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(12, 16, 25, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.75rem;
+            color: var(--text-soft);
+            margin-bottom: 16px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: conic-gradient(
+                from 180deg,
+                var(--pixld-blue),
+                var(--pixld-green),
+                var(--pixld-red),
+                var(--pixld-blue)
+            );
+            box-shadow: 0 0 14px rgba(54, 255, 107, 0.7);
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(158, 163, 175, 0.9);
+            margin-bottom: 4px;
+        }
+
+        .microcopy {
+            font-size: 0.78rem;
+            color: rgba(158, 163, 175, 0.8);
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .cta-primary {
+            border-radius: 999px;
+            padding: 10px 20px;
+            border: none;
+            cursor: default;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-weight: 500;
+            background: linear-gradient(
+                120deg,
+                var(--pixld-blue),
+                var(--pixld-green),
+                var(--pixld-red)
+            );
+            color: #050608;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .cta-secondary {
+            font-size: 0.85rem;
+            color: var(--text-soft);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cta-secondary span {
             font-size: 1.1rem;
-            opacity: 0.8;
-            margin-bottom: 25px;
+            line-height: 1;
         }
 
-        .loader {
-            width: 45px;
-            height: 45px;
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            border-top-color: #ffffff;
-            border-radius: 50%;
-            margin: 0 auto 25px;
-            animation: spin 1s infinite linear;
+        /* right side visual */
+        .right {
+            position: relative;
+            justify-self: center;
         }
 
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
+        .orb {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            border-radius: 32px;
+            background:
+                radial-gradient(circle at 20% 10%, rgba(11, 99, 255, 0.7), transparent 60%),
+                radial-gradient(circle at 80% 20%, rgba(54, 255, 107, 0.7), transparent 60%),
+                radial-gradient(circle at 50% 80%, rgba(255, 57, 50, 0.85), transparent 60%),
+                radial-gradient(circle at center, rgba(0, 0, 0, 0.9), #050608 68%);
+            box-shadow:
+                0 22px 60px rgba(0, 0, 0, 0.95),
+                0 0 0 1px rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            animation: float 4.5s ease-in-out infinite;
         }
 
-        footer {
-            margin-top: 15px;
-            opacity: 0.5;
-            font-size: 0.9rem;
+        .orb::before {
+            content: "";
+            position: absolute;
+            inset: 18%;
+            border-radius: 26px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(6px);
+        }
+
+        .x-glow {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 30px;
+            filter: drop-shadow(0 0 18px rgba(0, 0, 0, 0.7));
+            transform: scale(1);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .info-chip {
+            position: absolute;
+            bottom: -14px;
+            left: 10px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(5, 6, 8, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 0.72rem;
+            color: var(--text-soft);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tiny-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: var(--pixld-green);
+            box-shadow: 0 0 8px rgba(54, 255, 107, 0.8);
+        }
+
+        .footer {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(158, 163, 175, 0.7);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(-2deg);
+            }
+            50% {
+                transform: translateY(-12px) rotate(2deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.04);
+            }
         }
     </style>
 </head>
-
 <body>
+    <div class="shell">
+        <main class="card">
+            <section>
+                <div class="logo-mark">
+                    <img src="logo.png" alt="PIXLD logo" />
+                    <div class="brand-text">
+                        <span>Creative Lab</span>
+                        <span>PIXLD</span>
+                    </div>
+                </div>
 
-    <div class="glow-bg"></div>
-    <div class="glow-bg2"></div>
+                <div class="status-pill">
+                    <span class="dot"></span>
+                    <span>Site status: In production</span>
+                </div>
 
-    <div class="card">
-        <div class="loader"></div>
-        <h1>Something New Is Coming</h1>
-        <p>We’re crafting a fresh digital experience. Stay tuned — launching soon.</p>
-        <footer>© 2025 Pixld</footer>
+                <h1>
+                    We are rewriting<br />
+                    the way pixels
+                    <span class="highlight-line">show up for you</span>
+                </h1>
+
+                <p class="lead">
+                    PIXLD is rebuilding this space into a live playground for brands,
+                    campaigns, and experiments. No templates. No stock stories.
+                    Just work that actually feels alive.
+                </p>
+
+                <div class="cta-row">
+                    <button class="cta-primary" type="button">
+                        Studio in build mode
+                    </button>
+                    <a class="cta-secondary" href="mailto:hello@pixldglobal.com">
+                        Contact the team
+                        <span>↗</span>
+                    </a>
+                </div>
+
+                <div style="margin-top: 18px;">
+                    <p class="tagline">While this page loads, the ideas do not</p>
+                    <p class="microcopy">
+                        Want to talk campaigns, launches, or visuals already.
+                        Drop us a line and we ship from the lab.
+                    </p>
+                </div>
+            </section>
+
+            <section class="right">
+                <div class="orb">
+                    <!-- put your RGB X logo here -->
+                    <img src="logo.png" alt="PIXLD logo" class="x-glow" />
+                    <div class="info-chip">
+                        <span class="tiny-dot"></span>
+                        <span>Calibrating colors • Motion, sound, story</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="footer">
+            © <span id="year"></span> PIXLD. Crafted in pixels, shipped everywhere.
+        </div>
     </div>
 
+    <script>
+        // dynamic year
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
