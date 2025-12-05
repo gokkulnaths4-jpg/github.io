@@ -1,31 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site Under Construction</title>
-    
+
     <style>
-        body {
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
             margin: 0;
             padding: 0;
-            background: #0f0f0f;
-            color: #ffffff;
-            font-family: "Poppins", sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
+            box-sizing: border-box;
         }
 
-        .container {
-            max-width: 500px;
-            padding: 20px;
+        body {
+            font-family: "Poppins", sans-serif;
+            background: radial-gradient(circle at top, #1c1c1c, #0e0e0e 70%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .glow-bg {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: #6e00ff;
+            filter: blur(120px);
+            opacity: 0.4;
+            top: -80px;
+            right: -60px;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .glow-bg2 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #008cff;
+            filter: blur(120px);
+            opacity: 0.3;
+            bottom: -60px;
+            left: -50px;
+            animation: float2 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(20px); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translateY(15px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .card {
+            padding: 60px 40px;
+            max-width: 550px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            backdrop-filter: blur(14px);
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            font-size: 2.4rem;
+            font-size: 2.5rem;
+            font-weight: 600;
             margin-bottom: 10px;
             letter-spacing: 1px;
         }
@@ -37,38 +89,38 @@
         }
 
         .loader {
-            border: 4px solid rgba(255, 255, 255, 0.15);
-            border-top: 4px solid #ffffff;
+            width: 45px;
+            height: 45px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #ffffff;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 20px;
-            animation: spin 1.2s linear infinite;
+            margin: 0 auto 25px;
+            animation: spin 1s infinite linear;
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            100% { transform: rotate(360deg); }
         }
 
         footer {
-            margin-top: 20px;
-            font-size: 0.9rem;
+            margin-top: 15px;
             opacity: 0.5;
+            font-size: 0.9rem;
         }
     </style>
 </head>
+
 <body>
 
-    <div class="container">
+    <div class="glow-bg"></div>
+    <div class="glow-bg2"></div>
+
+    <div class="card">
         <div class="loader"></div>
-
-        <h1>We’re Building Something Awesome</h1>
-        <p>Our site is currently under construction. We’ll be live very soon.</p>
-
+        <h1>Something New Is Coming</h1>
+        <p>We’re crafting a fresh digital experience. Stay tuned — launching soon.</p>
         <footer>© 2025 Pixld</footer>
     </div>
 
 </body>
 </html>
-
