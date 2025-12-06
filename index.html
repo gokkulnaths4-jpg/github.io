@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PIXLD - Site In Progress</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050507" />
+  <title>PIXLD - Studio In Build Mode</title>
 
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap");
@@ -24,6 +25,10 @@
       box-sizing: border-box;
     }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
       min-height: 100vh;
       background:
@@ -36,8 +41,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 32px 20px;
-      overflow: hidden;
+      padding: 20px 12px;
+      overflow-x: hidden;
     }
 
     body::before {
@@ -50,36 +55,42 @@
       z-index: 0;
     }
 
-    .frame {
+    .shell {
       position: relative;
       z-index: 1;
       width: 100%;
       max-width: 1040px;
-      min-height: 520px;
-      border-radius: 28px;
+    }
+
+    .frame {
+      width: 100%;
+      border-radius: 24px;
       border: 1px solid var(--border-soft);
-      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.04), transparent 55%),
-                  radial-gradient(circle at 100% 100%, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.04), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
       box-shadow:
         0 0 0 1px rgba(255,255,255,0.03),
-        0 28px 80px rgba(0,0,0,0.9);
+        0 20px 60px rgba(0,0,0,0.9);
       display: grid;
-      grid-template-columns: 72px minmax(0, 2.3fr) minmax(0, 1.4fr);
+      grid-template-columns: 64px minmax(0, 2.3fr) minmax(0, 1.4fr);
       overflow: hidden;
+      animation: fadeIn 0.8s ease-out forwards;
     }
 
-    @media (max-width: 880px) {
-      .frame {
-        grid-template-columns: 56px minmax(0, 1fr);
-        grid-template-rows: auto auto;
-      }
-    }
-
+    /* Android first - small screens */
     @media (max-width: 720px) {
+      body {
+        align-items: stretch;
+        padding: 16px 10px;
+      }
+
       .frame {
-        grid-template-columns: 56px minmax(0, 1fr);
-        grid-template-rows: auto auto;
-        min-height: 0;
+        border-radius: 20px;
+        box-shadow:
+          0 0 0 1px rgba(255,255,255,0.02),
+          0 12px 40px rgba(0,0,0,0.9);
+        grid-template-columns: 52px minmax(0, 1fr);
       }
     }
 
@@ -90,11 +101,18 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 22px 0 18px;
-      font-size: 0.7rem;
-      letter-spacing: 0.35em;
+      padding: 18px 0 16px;
+      font-size: 0.68rem;
+      letter-spacing: 0.32em;
       text-transform: uppercase;
       color: rgba(245,245,245,0.46);
+    }
+
+    @media (max-width: 720px) {
+      .rail {
+        font-size: 0.6rem;
+        letter-spacing: 0.28em;
+      }
     }
 
     .rail-top {
@@ -104,7 +122,7 @@
 
     .rail-bottom {
       width: 2px;
-      height: 80px;
+      height: 70px;
       border-radius: 999px;
       background: linear-gradient(
         180deg,
@@ -136,18 +154,25 @@
       100% { transform: translateY(100%); }
     }
 
-    /* main text */
+    /* main content */
     .content {
-      padding: 32px 40px 30px;
+      padding: 28px 32px 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 28px;
+      gap: 22px;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 880px) {
       .content {
-        padding: 24px 22px 22px;
+        padding: 24px 22px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content {
+        padding: 20px 18px 18px;
+        gap: 18px;
       }
     }
 
@@ -155,18 +180,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 18px;
-      margin-bottom: 18px;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .top-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
 
     .logo-block {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .logo-block img {
-      width: 54px;
+      width: 50px;
       height: auto;
     }
 
@@ -177,32 +209,39 @@
     }
 
     .logo-labels span:first-child {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: rgba(245,245,245,0.55);
     }
 
     .logo-labels span:last-child {
-      font-size: 1rem;
+      font-size: 0.96rem;
       font-weight: 500;
     }
 
     .status-pill {
-      font-size: 0.72rem;
-      padding: 7px 14px;
+      font-size: 0.7rem;
+      padding: 6px 12px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,0.16);
       background: rgba(0,0,0,0.7);
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       white-space: nowrap;
     }
 
+    @media (max-width: 480px) {
+      .status-pill {
+        font-size: 0.68rem;
+        padding: 6px 10px;
+      }
+    }
+
     .status-dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
       background: conic-gradient(
         from 180deg,
@@ -219,18 +258,25 @@
     }
 
     .kicker {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: rgba(245,245,245,0.55);
-      margin-bottom: 8px;
+      margin-bottom: 7px;
+    }
+
+    @media (max-width: 480px) {
+      .kicker {
+        font-size: 0.68rem;
+        letter-spacing: 0.26em;
+      }
     }
 
     h1 {
-      font-size: clamp(2.1rem, 3vw + 1rem, 3rem);
-      line-height: 1.08;
+      font-size: clamp(1.9rem, 3vw + 1rem, 2.7rem);
+      line-height: 1.1;
       font-weight: 600;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .focus {
@@ -266,23 +312,37 @@
     }
 
     .body-copy {
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       color: var(--text-soft);
       max-width: 460px;
       line-height: 1.6;
     }
 
+    @media (max-width: 480px) {
+      .body-copy {
+        font-size: 0.9rem;
+      }
+    }
+
     .bottom-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px 24px;
+      gap: 10px 18px;
       align-items: center;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: rgba(245,245,245,0.58);
+      margin-top: 6px;
+    }
+
+    @media (max-width: 480px) {
+      .bottom-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
 
     .pill-main {
-      padding: 9px 18px;
+      padding: 9px 16px;
       border-radius: 999px;
       border: none;
       background: linear-gradient(
@@ -292,8 +352,8 @@
         var(--pixld-red)
       );
       color: #050507;
-      font-size: 0.78rem;
-      letter-spacing: 0.18em;
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       font-weight: 500;
       display: inline-flex;
@@ -303,16 +363,20 @@
     }
 
     .pill-main span {
-      font-size: 1rem;
+      font-size: 0.9rem;
       transform: translateY(1px);
     }
 
     .link-soft {
       text-decoration: none;
-      color: rgba(245,245,245,0.65);
+      color: rgba(245,245,245,0.84);
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.45);
     }
 
     .link-soft span {
@@ -321,21 +385,28 @@
     }
 
     .note {
-      opacity: 0.8;
+      opacity: 0.85;
+      max-width: 320px;
     }
 
-    /* right panel */
+    @media (max-width: 480px) {
+      .note {
+        font-size: 0.78rem;
+      }
+    }
+
+    /* right visual panel */
     .visual {
       border-left: 1px solid rgba(255,255,255,0.08);
       background:
         radial-gradient(circle at 20% 0%, rgba(11,99,255,0.35), transparent 60%),
         radial-gradient(circle at 80% 100%, rgba(255,57,50,0.4), transparent 60%),
         radial-gradient(circle at 50% 50%, rgba(0,0,0,0.92), #020203 70%);
-      padding: 30px 30px 26px;
+      padding: 24px 24px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 18px;
+      gap: 14px;
       position: relative;
     }
 
@@ -346,7 +417,7 @@
     }
 
     .visual-top-tag {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.26em;
       color: rgba(245,245,245,0.64);
@@ -361,16 +432,16 @@
     }
 
     .logo-orb {
-      width: 210px;
-      height: 210px;
-      border-radius: 32px;
+      width: 190px;
+      height: 190px;
+      border-radius: 30px;
       background:
         radial-gradient(circle at 15% 10%, rgba(11,99,255,0.7), transparent 60%),
         radial-gradient(circle at 80% 20%, rgba(54,255,107,0.7), transparent 60%),
         radial-gradient(circle at 50% 90%, rgba(255,57,50,0.85), transparent 60%),
         radial-gradient(circle at center, rgba(0,0,0,0.86), #050507 68%);
       box-shadow:
-        0 24px 70px rgba(0,0,0,1),
+        0 20px 60px rgba(0,0,0,1),
         0 0 0 1px rgba(255,255,255,0.05);
       display: flex;
       align-items: center;
@@ -384,22 +455,22 @@
       content: "";
       position: absolute;
       inset: 16%;
-      border-radius: 26px;
+      border-radius: 24px;
       border: 1px solid rgba(255,255,255,0.08);
       backdrop-filter: blur(6px);
     }
 
     .logo-orb img {
-      width: 120px;
+      width: 112px;
       position: relative;
       z-index: 1;
       animation: pulse 3.2s ease-in-out infinite;
-      filter: drop-shadow(0 0 22px rgba(0,0,0,0.85));
+      filter: drop-shadow(0 0 18px rgba(0,0,0,0.85));
     }
 
     .visual-tag {
-      font-size: 0.75rem;
-      color: rgba(245,245,245,0.68);
+      font-size: 0.74rem;
+      color: rgba(245,245,245,0.7);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -421,9 +492,14 @@
       gap: 6px;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @keyframes float {
       0%, 100% { transform: translateY(0) rotate(-2deg); }
-      50% { transform: translateY(-14px) rotate(2deg); }
+      50% { transform: translateY(-12px) rotate(2deg); }
     }
 
     @keyframes pulse {
@@ -432,93 +508,102 @@
     }
 
     .foot {
-      margin-top: 12px;
+      margin-top: 10px;
       text-align: center;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       color: rgba(245,245,245,0.6);
+    }
+
+    @media (max-width: 480px) {
+      .foot {
+        font-size: 0.7rem;
+        margin-top: 8px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="frame">
-    <aside class="rail">
-      <div class="rail-top">
-        under construction
-      </div>
-      <div class="rail-bottom"></div>
-    </aside>
+  <div class="shell">
+    <div class="frame">
+      <aside class="rail">
+        <div class="rail-top">
+          under construction
+        </div>
+        <div class="rail-bottom"></div>
+      </aside>
 
-    <section class="content">
-      <div>
-        <div class="top-row">
-          <div class="logo-block">
-            <img src="https://i.postimg.cc/3xzyRvYM/Pixld-logo.png" alt="PIXLD logo" />
-            <div class="logo-labels">
-              <span>Creative agency</span>
-              <span>PIXLD</span>
+      <section class="content">
+        <div>
+          <div class="top-row">
+            <div class="logo-block">
+              <img src="https://i.postimg.cc/3xzyRvYM/Pixld-logo.png" alt="PIXLD logo" />
+              <div class="logo-labels">
+                <span>Creative agency</span>
+                <span>PIXLD</span>
+              </div>
+            </div>
+
+            <div class="status-pill">
+              <span class="status-dot"></span>
+              Live site currently in build mode
             </div>
           </div>
 
-          <div class="status-pill">
-            <span class="status-dot"></span>
-            Live site currently in build mode
+          <div class="headline-block">
+            <p class="kicker">This is the holding page, not the work</p>
+            <h1>
+              The studio is busy teaching
+              <span class="focus"><span>pixels</span></span>
+              new tricks.
+            </h1>
+            <p class="body-copy">
+              We are wiring up a space for campaigns, launches, and loud ideas.
+              While the site is under construction, the work is very much in motion.
+            </p>
           </div>
         </div>
 
-        <div class="headline-block">
-          <p class="kicker">This is the holding page, not the work</p>
-          <h1>
-            The studio is busy teaching
-            <span class="focus"><span>pixels</span></span>
-            new tricks.
-          </h1>
-          <p class="body-copy">
-            We are wiring up a space for campaigns, launches, and loud ideas.
-            While the site is under construction, the work is very much in motion.
-          </p>
+        <div class="bottom-row">
+          <button class="pill-main" type="button">
+            build log: active <span>●</span>
+          </button>
+
+          <a class="link-soft" href="mailto:hello@pixldglobal.com">
+            <span>↗</span> hello@pixldglobal.com
+          </a>
+
+          <span class="note">
+            Prefer to skip the website and talk directly:
+            strategy, visuals, content, launch plans.
+          </span>
         </div>
-      </div>
+      </section>
 
-      <div class="bottom-row">
-        <button class="pill-main" type="button">
-          build log: active <span>●</span>
-        </button>
-
-        <a class="link-soft" href="mailto:hello@pixldglobal.com">
-          <span>↗</span> hello@pixldglobal.com
-        </a>
-
-        <span class="note">
-          Prefer to skip the website and talk directly:
-          strategy, visuals, content, launch plans.
-        </span>
-      </div>
-    </section>
-
-    <aside class="visual">
-      <div class="visual-top-tag">
-        rgb lab / live
-      </div>
-
-      <div class="visual-core">
-        <div class="logo-orb">
-          <img src="https://i.postimg.cc/3xzyRvYM/Pixld-logo.png" alt="PIXLD logo" />
+      <aside class="visual">
+        <div class="visual-top-tag">
+          rgb lab / live
         </div>
-      </div>
 
-      <div class="visual-tag">
-        <span class="stack">
-          <span class="tiny-dot"></span>
-          calibrating color, motion, and story
-        </span>
-        <span>v0.1</span>
-      </div>
-    </aside>
-  </div>
+        <div class="visual-core">
+          <div class="logo-orb">
+            <img src="https://i.postimg.cc/3xzyRvYM/Pixld-logo.png" alt="PIXLD logo" />
+          </div>
+        </div>
 
-  <div class="foot">
-    © <span id="year"></span> PIXLD. Built in the background.
+        <div class="visual-tag">
+          <span class="stack">
+            <span class="tiny-dot"></span>
+            calibrating color, motion, and story
+          </span>
+          <span>v0.1</span>
+        </div>
+      </aside>
+    </div>
+
+    <div class="foot">
+      © <span id="year"></span> PIXLD. Built in the background.
+    </div>
   </div>
 
   <script>
