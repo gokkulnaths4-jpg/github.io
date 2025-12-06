@@ -1,268 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PIXLD — Under Construction</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PIXLD - Site In Progress</title>
 
-    <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap");
 
-        :root {
-            --blue: #0b63ff;
-            --green: #36ff6b;
-            --red: #ff3932;
-            --bg: #050506;
-            --soft: rgba(255, 255, 255, 0.7);
-            --muted: rgba(255, 255, 255, 0.45);
-            --border: rgba(255, 255, 255, 0.08);
-        }
+    :root {
+      --pixld-blue: #0b63ff;
+      --pixld-green: #36ff6b;
+      --pixld-red: #ff3932;
+      --bg: #050507;
+      --text-main: #f5f5f5;
+      --text-soft: rgba(245, 245, 245, 0.6);
+      --border-soft: rgba(255, 255, 255, 0.12);
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            background: radial-gradient(circle at 20% 0%, rgba(11,99,255,0.17), transparent 60%),
-                        radial-gradient(circle at 85% 35%, rgba(54,255,107,0.2), transparent 60%),
-                        radial-gradient(circle at 50% 110%, rgba(255,57,50,0.22), transparent 60%),
-                        var(--bg);
-            color: var(--soft);
-            font-family: "Poppins", sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            overflow: hidden;
-        }
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(11,99,255,0.22), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(54,255,107,0.16), transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(255,57,50,0.2), transparent 55%),
+        var(--bg);
+      color: var(--text-main);
+      font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 20px;
+      overflow: hidden;
+    }
 
-        /* Ultra-soft grain */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-            mix-blend-mode: soft-light;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+      z-index: 0;
+    }
 
-        .wrap {
-            max-width: 880px;
-            width: 100%;
-            position: relative;
-            z-index: 10;
-        }
+    .frame {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1040px;
+      min-height: 520px;
+      border-radius: 28px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.04), transparent 55%),
+                  radial-gradient(circle at 100% 100%, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 28px 80px rgba(0,0,0,0.9);
+      display: grid;
+      grid-template-columns: 72px minmax(0, 2.3fr) minmax(0, 1.4fr);
+      overflow: hidden;
+    }
 
-        .card {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(18px);
-            border: 1px solid var(--border);
-            border-radius: 26px;
-            padding: 55px 45px;
-            display: grid;
-            grid-template-columns: 1.4fr 1fr;
-            gap: 50px;
-            box-shadow: 0 18px 60px rgba(0,0,0,0.8);
-            animation: fadeIn 1s ease forwards;
-        }
+    @media (max-width: 880px) {
+      .frame {
+        grid-template-columns: 56px minmax(0, 1fr);
+        grid-template-rows: auto auto;
+      }
+    }
 
-        @media (max-width: 760px) {
-            .card {
-                grid-template-columns: 1fr;
-                padding: 40px 26px;
-            }
-        }
+    @media (max-width: 720px) {
+      .frame {
+        grid-template-columns: 56px minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        min-height: 0;
+      }
+    }
 
-        .logo-row {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 24px;
-        }
+    /* vertical rail */
+    .rail {
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 0 18px;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(245,245,245,0.46);
+    }
 
-        .logo-row img {
-            width: 64px;
-            height: auto;
-        }
+    .rail-top {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
 
-        .logo-text span:first-child {
-            font-size: 0.75rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
+    .rail-bottom {
+      width: 2px;
+      height: 80px;
+      border-radius: 999px;
+      background: linear-gradient(
+        180deg,
+        var(--pixld-blue),
+        var(--pixld-green),
+        var(--pixld-red)
+      );
+      position: relative;
+      overflow: hidden;
+    }
 
-        .logo-text span:last-child {
-            font-size: 1.15rem;
-            font-weight: 500;
-        }
+    .rail-bottom::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(0,0,0,0.8),
+        transparent
+      );
+      animation: scan 2.4s ease-in-out infinite;
+      opacity: 0.9;
+    }
 
-        h1 {
-            margin-top: 10px;
-            font-size: clamp(2.1rem, 3vw + 1rem, 2.9rem);
-            font-weight: 600;
-            line-height: 1.15;
-        }
+    @keyframes scan {
+      0% { transform: translateY(-100%); }
+      50% { transform: translateY(0); }
+      100% { transform: translateY(100%); }
+    }
 
-        .gradient-word {
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--red));
-            -webkit-background-clip: text;
-            color: transparent;
-            font-weight: 600;
-        }
+    /* main text */
+    .content {
+      padding: 32px 40px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+    }
 
-        .subtext {
-            font-size: 1rem;
-            margin-top: 18px;
-            max-width: 460px;
-            color: var(--muted);
-            line-height: 1.6;
-        }
+    @media (max-width: 720px) {
+      .content {
+        padding: 24px 22px 22px;
+      }
+    }
 
-        .badge {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--border);
-            padding: 7px 14px;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 14px;
-            font-size: 0.8rem;
-        }
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
 
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: conic-gradient(var(--blue), var(--green), var(--red), var(--blue));
-            box-shadow: 0 0 10px rgba(54,255,107,0.8);
-        }
+    .logo-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-        .orb {
-            width: 260px;
-            height: 260px;
-            border-radius: 32px;
-            background:
-                radial-gradient(circle at 20% 20%, rgba(11,99,255,0.72), transparent 60%),
-                radial-gradient(circle at 80% 30%, rgba(54,255,107,0.6), transparent 60%),
-                radial-gradient(circle at 50% 90%, rgba(255,57,50,0.75), transparent 60%),
-                radial-gradient(circle at center, rgba(0,0,0,0.9), rgb(3,4,5) 65%);
-            box-shadow: 0 25px 65px rgba(0,0,0,0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: float 5s ease-in-out infinite;
-            position: relative;
-            overflow: hidden;
-        }
+    .logo-block img {
+      width: 54px;
+      height: auto;
+    }
 
-        .orb img {
-            width: 130px;
-            animation: pulse 3s ease-in-out infinite;
-        }
+    .logo-labels {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
 
-        .chip {
-            position: absolute;
-            bottom: -12px;
-            left: 14px;
-            padding: 7px 12px;
-            font-size: 0.75rem;
-            border-radius: 999px;
-            background: rgba(0,0,0,0.9);
-            border: 1px solid rgba(255,255,255,0.12);
-            color: var(--muted);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .logo-labels span:first-child {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245,245,245,0.55);
+    }
 
-        .tiny {
-            width: 6px;
-            height: 6px;
-            background: var(--green);
-            border-radius: 50%;
-            box-shadow: 0 0 7px rgba(54,255,107,0.9);
-        }
+    .logo-labels span:last-child {
+      font-size: 1rem;
+      font-weight: 500;
+    }
 
-        .footer {
-            text-align: center;
-            margin-top: 22px;
-            font-size: 0.78rem;
-            color: var(--muted);
-        }
+    .status-pill {
+      font-size: 0.72rem;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(0,0,0,0.7);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: conic-gradient(
+        from 180deg,
+        var(--pixld-blue),
+        var(--pixld-green),
+        var(--pixld-red),
+        var(--pixld-blue)
+      );
+      box-shadow: 0 0 12px rgba(54,255,107,0.9);
+    }
 
-        @keyframes float {
-            0%,100% { transform: translateY(0) rotate(-2deg); }
-            50% { transform: translateY(-14px) rotate(2deg); }
-        }
+    .headline-block {
+      max-width: 520px;
+    }
 
-        @keyframes pulse {
-            0%,100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-    </style>
+    .kicker {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(245,245,245,0.55);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 3vw + 1rem, 3rem);
+      line-height: 1.08;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .focus {
+      display: inline-block;
+      position: relative;
+    }
+
+    .focus span {
+      background: linear-gradient(
+        90deg,
+        var(--pixld-blue),
+        var(--pixld-green),
+        var(--pixld-red)
+      );
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .focus::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -3px;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        var(--pixld-blue),
+        var(--pixld-green),
+        var(--pixld-red)
+      );
+      opacity: 0.9;
+    }
+
+    .body-copy {
+      font-size: 0.98rem;
+      color: var(--text-soft);
+      max-width: 460px;
+      line-height: 1.6;
+    }
+
+    .bottom-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 24px;
+      align-items: center;
+      font-size: 0.82rem;
+      color: rgba(245,245,245,0.58);
+    }
+
+    .pill-main {
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(
+        120deg,
+        var(--pixld-blue),
+        var(--pixld-green),
+        var(--pixld-red)
+      );
+      color: #050507;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: default;
+    }
+
+    .pill-main span {
+      font-size: 1rem;
+      transform: translateY(1px);
+    }
+
+    .link-soft {
+      text-decoration: none;
+      color: rgba(245,245,245,0.65);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .link-soft span {
+      font-size: 1rem;
+      transform: translateY(1px);
+    }
+
+    .note {
+      opacity: 0.8;
+    }
+
+    /* right panel */
+    .visual {
+      border-left: 1px solid rgba(255,255,255,0.08);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(11,99,255,0.35), transparent 60%),
+        radial-gradient(circle at 80% 100%, rgba(255,57,50,0.4), transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(0,0,0,0.92), #020203 70%);
+      padding: 30px 30px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      position: relative;
+    }
+
+    @media (max-width: 880px) {
+      .visual {
+        display: none;
+      }
+    }
+
+    .visual-top-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.26em;
+      color: rgba(245,245,245,0.64);
+      text-align: right;
+    }
+
+    .visual-core {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-orb {
+      width: 210px;
+      height: 210px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(11,99,255,0.7), transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(54,255,107,0.7), transparent 60%),
+        radial-gradient(circle at 50% 90%, rgba(255,57,50,0.85), transparent 60%),
+        radial-gradient(circle at center, rgba(0,0,0,0.86), #050507 68%);
+      box-shadow:
+        0 24px 70px rgba(0,0,0,1),
+        0 0 0 1px rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      animation: float 4.8s ease-in-out infinite;
+    }
+
+    .logo-orb::before {
+      content: "";
+      position: absolute;
+      inset: 16%;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(6px);
+    }
+
+    .logo-orb img {
+      width: 120px;
+      position: relative;
+      z-index: 1;
+      animation: pulse 3.2s ease-in-out infinite;
+      filter: drop-shadow(0 0 22px rgba(0,0,0,0.85));
+    }
+
+    .visual-tag {
+      font-size: 0.75rem;
+      color: rgba(245,245,245,0.68);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tiny-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--pixld-green);
+      box-shadow: 0 0 10px rgba(54,255,107,0.9);
+      margin-right: 6px;
+    }
+
+    .stack {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-14px) rotate(2deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .foot {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 0.76rem;
+      color: rgba(245,245,245,0.6);
+    }
+  </style>
 </head>
 
 <body>
-    <div class="wrap">
+  <div class="frame">
+    <aside class="rail">
+      <div class="rail-top">
+        under construction
+      </div>
+      <div class="rail-bottom"></div>
+    </aside>
 
-        <div class="card">
+    <section class="content">
+      <div>
+        <div class="top-row">
+          <div class="logo-block">
+            <img src="https://i.postimg.cc/3xzyRvYM/Pixld-logo.png" alt="PIXLD logo" />
+            <div class="logo-labels">
+              <span>Creative agency</span>
+              <span>PIXLD</span>
+            </div>
+          </div>
 
-            <!-- Left -->
-            <section>
-                <div class="logo-row">
-                    <img src="https://i.postimg.cc/3xzyRvYM/Pixld-logo.png" alt="PIXLD Logo">
-                    <div class="logo-text">
-                        <span>Creative Studio</span>
-                        <span>PIXLD</span>
-                    </div>
-                </div>
-
-                <div class="badge">
-                    <div class="dot"></div>
-                    In Production — Calibrating Experience
-                </div>
-
-                <h1>
-                    We’re designing a space where  
-                    <span class="gradient-word">ideas move like pixels</span>
-                </h1>
-
-                <p class="subtext">
-                    Our new site will be a living gallery for visuals, campaigns,  
-                    experiments and energy.  
-                    No fillers — only the work that defines us.
-                </p>
-            </section>
-
-            <!-- Right -->
-            <section style="display: flex; justify-content: center;">
-                <div class="orb">
-                    <img src="https://i.postimg.cc/3xzyRvYM/Pixld-logo.png" alt="PIXLD Logo">
-                    <div class="chip">
-                        <div class="tiny"></div>
-                        Preparing launch assets...
-                    </div>
-                </div>
-            </section>
-
+          <div class="status-pill">
+            <span class="status-dot"></span>
+            Live site currently in build mode
+          </div>
         </div>
 
-        <div class="footer">© <span id="year"></span> PIXLD. Built with intention.</div>
+        <div class="headline-block">
+          <p class="kicker">This is the holding page, not the work</p>
+          <h1>
+            The studio is busy teaching
+            <span class="focus"><span>pixels</span></span>
+            new tricks.
+          </h1>
+          <p class="body-copy">
+            We are wiring up a space for campaigns, launches, and loud ideas.
+            While the site is under construction, the work is very much in motion.
+          </p>
+        </div>
+      </div>
 
-    </div>
+      <div class="bottom-row">
+        <button class="pill-main" type="button">
+          build log: active <span>●</span>
+        </button>
 
-    <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
+        <a class="link-soft" href="mailto:hello@pixldglobal.com">
+          <span>↗</span> hello@pixldglobal.com
+        </a>
+
+        <span class="note">
+          Prefer to skip the website and talk directly:
+          strategy, visuals, content, launch plans.
+        </span>
+      </div>
+    </section>
+
+    <aside class="visual">
+      <div class="visual-top-tag">
+        rgb lab / live
+      </div>
+
+      <div class="visual-core">
+        <div class="logo-orb">
+          <img src="https://i.postimg.cc/3xzyRvYM/Pixld-logo.png" alt="PIXLD logo" />
+        </div>
+      </div>
+
+      <div class="visual-tag">
+        <span class="stack">
+          <span class="tiny-dot"></span>
+          calibrating color, motion, and story
+        </span>
+        <span>v0.1</span>
+      </div>
+    </aside>
+  </div>
+
+  <div class="foot">
+    © <span id="year"></span> PIXLD. Built in the background.
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
