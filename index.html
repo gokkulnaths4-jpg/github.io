@@ -4,10 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Title -->
   <title>PIXLD | Pixels in Progress</title>
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://i.postimg.cc/CKnQf09Y/Logo-Assets-02.png">
   <link rel="apple-touch-icon" href="https://i.postimg.cc/CKnQf09Y/Logo-Assets-02.png">
 
@@ -26,14 +24,20 @@
 
     body {
       min-height: 100vh;
-      background-image: url("https://i.postimg.cc/SNw8xpLH/Grid-Background.png"); 
+      background-color: #000;
+      background-image: url("https://i.postimg.cc/MHp4HBwx/Landing-Page-Background.png"); 
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
-      background-color: #000;
-      font-family: Arial, sans-serif;
-      color: white;
+    }
+
+    /* Mobile Background */
+    @media (max-width: 768px) {
+      body {
+        background-image: url("https://i.postimg.cc/gjgCHDsm/Landing-Page-Background-1080x1920.png");
+        background-attachment: scroll;
+      }
     }
   </style>
 </head>
