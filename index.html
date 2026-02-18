@@ -10,7 +10,6 @@
 <meta name="theme-color" content="#000000">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -43,14 +42,29 @@ body {
   overflow: hidden;
 }
 
-/* ===== GLOW LAYER ===== */
-.glow-layer {
+/* ===== ANIMATED CORNER GLOWS ===== */
+body::before {
+  content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  transition: background 0.3s ease;
-  filter: blur(80px);
+
+  background:
+    radial-gradient(circle at 0% 0%, hsla(350, 100%, 60%, 0.35), transparent 40%),
+    radial-gradient(circle at 100% 0%, hsla(210, 100%, 60%, 0.35), transparent 40%),
+    radial-gradient(circle at 0% 100%, hsla(320, 100%, 60%, 0.35), transparent 40%),
+    radial-gradient(circle at 100% 100%, hsla(140, 100%, 50%, 0.35), transparent 40%);
+
+  filter: blur(90px);
+  animation: hueShift 18s linear infinite alternate;
+}
+
+/* Smooth color shifting */
+@keyframes hueShift {
+  0%   { filter: blur(90px) hue-rotate(0deg); }
+  50%  { filter: blur(90px) hue-rotate(20deg); }
+  100% { filter: blur(90px) hue-rotate(40deg); }
 }
 
 /* ===== CONTENT ===== */
@@ -145,8 +159,6 @@ h1 {
 
 <body>
 
-<div class="glow-layer" id="glow"></div>
-
 <div class="container">
   <h1>Pixels in progress.</h1>
 
@@ -171,22 +183,6 @@ h1 {
     <a href="#"><i class="fab fa-whatsapp"></i></a>
   </div>
 </div>
-
-<script>
-const glow = document.getElementById('glow');
-
-document.addEventListener('mousemove', (e) => {
-  const x = e.clientX / window.innerWidth * 100;
-  const y = e.clientY / window.innerHeight * 100;
-
-  glow.style.background = `
-    radial-gradient(circle at ${x}% ${y}%, rgba(255,0,80,0.35), transparent 40%),
-    radial-gradient(circle at ${100 - x}% ${y}%, rgba(0,120,255,0.35), transparent 40%),
-    radial-gradient(circle at ${x}% ${100 - y}%, rgba(255,0,120,0.35), transparent 40%),
-    radial-gradient(circle at ${100 - x}% ${100 - y}%, rgba(0,255,140,0.35), transparent 40%)
-  `;
-});
-</script>
 
 </body>
 </html>
